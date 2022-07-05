@@ -5,7 +5,7 @@ This is currently a work in progress.
 
 Assuming you have 2 additional unmounted disks installed, follow [this guide](https://www.linuxbabe.com/linux-server/linux-software-raid-1-setup)
 
-On step 5, I found the guide wasn't complete. When I removed one of the drives and rebooted, I found that `/mnt/raid1` was empty. When I tried to mount with `~$ sudo mount /dev/md0 /mnt/raid1` I got the following error:
+On step 5, I believe that assumes you already set up your `/etc/fstab` (which further down below in the guide). If you haven't already done that, you might find that `/mnt/raid1` is empty (i.e. `/dev/md0` isn't mounted there). When I tried to mount with `~$ sudo mount /dev/md0 /mnt/raid1` I got the following error:
 `mount: /mnt/raid1: can't read superblock on /dev/md0.`
 
 To get around it, I did [the following](https://superuser.com/questions/993259/why-is-my-raid-1-disk-inactive):
@@ -26,6 +26,7 @@ Editing the fstab file gave me some trouble so I skipped that part.
 The final thing to do is change the ownership of the directory:
 
 `sudo chown -R {username}: /mnt/`
+
 
 # Setting Up bitcoind
 
