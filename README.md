@@ -49,6 +49,17 @@ zmqpubrawblock=tcp://127.0.0.1:28332
 zmqpubrawtx=tcp://127.0.0.1:28333
 ```
 
+## Setting up bitcoind service
+At the bottom of the tutorial in Method 2, it recommends starting bitcoind via a crontab. However we will do it through a service.
+
+We will create a file called `/etc/systemd/system/bitcoind.service` and copy paste the the [bitcoind.service](/bitcoind.service) file while editing the {username} with your username.
+
+To enable the service on startup, use
+
+`sudo systemctl enable bitcoind.service `
+
+Todo: update bitcoind.service script by adapting [bitcoin/bitcoin/blob/master/contrib/init/bitcoind.service](https://github.com/bitcoin/bitcoin/blob/master/contrib/init/bitcoind.service).
+
 # Setting up CLN
 Following the github guide [here](https://github.com/ElementsProject/lightning#installation) with a slight modification since we didn't use snap to install bitcoin-core:
 ```
@@ -69,6 +80,7 @@ network=bitcoin
 bitcoin-rpcuser={username}
 bitcoin-rpcpassword={password}
 lightning-dir=/mnt/raid1/.lightning/
+log-file=/mnt/raid1/.lightning/lightningd.log
 ```
 and now to run CLN, we can try:
 
@@ -76,3 +88,9 @@ and now to run CLN, we can try:
 
 We can confirm that there is now a db file located in `/mnt/raid1/.lightning/bitcoin/lightningd.sqlite3`
 
+## Setting up lightningd service
+Create a file called `/etc/systemd/system/lightningd.service` and copy paste the the [lightningd.service](/lightningd.service) file while editing the {username} with your username.
+
+To enable the service on startup, use
+
+`sudo systemctl enable lightningd.service `

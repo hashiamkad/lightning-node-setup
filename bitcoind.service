@@ -1,0 +1,15 @@
+[Unit]
+Description=bitcoin
+After=network.target
+
+[Service]
+Type=simple
+User={username}
+Group={username}
+Environment=BITCOIN_PID=/home/{username}/.bitcoin/bitcoin.pid
+Environment=BITCOIN_HOME=/home/{username}/.bitcoin
+ExecStart=/usr/local/bin/bitcoind
+ExecStop=/bin/kill -15 $MAINPID
+
+[Install]
+WantedBy=multi-user.target
