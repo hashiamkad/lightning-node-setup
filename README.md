@@ -93,9 +93,55 @@ Create a file called `/etc/systemd/system/lightningd.service` and copy paste the
 
 To enable the service on startup, use
 
-`sudo systemctl enable lightningd.service `
+`sudo systemctl enable lightningd.service`
+
+## Setting up `hsm_secret` from a BIP39 word list
+
+The `hsm_secret` is created when you first create the node. To back it up, see the section below. If you would like a pencil & paper copy, follow the steps below:
+
+1. Use [trezor's mnemonic repo](https://github.com/trezor/python-mnemonic) (or any other tool you like) to generate 12-24 words. You can use the following script:
+```
+from mnemonic import Mnemonic
+
+mnemo = Mnemonic("english")
+words = mnemo.generate(strength=128)
+
+print(words)
+```
+2. run `lightning-hsmtool generatehsm hsm_secret`
+3. mv the `hsm_secret` file to  `/mnt/raid1/.lightning/bitcoin/`
+4. `chmod 0400 /mnt/raid1/.lightning/bitcoin/hsm_secret`
+
+
+## Backing up your CLN node
+
+Follow the [CLN backup guide](https://github.com/ElementsProject/lightning/blob/master/doc/BACKUP.md)
+
+Note that: 
+> Recovery of the `hsm_secret` is sufficient to recover any onchain funds. Recovery of the `hsm_secret` is necessary, but insufficient, to recover any in-channel funds. 
+
+There are 2 main things to back up: the `hsm_secret` and the `lightningd.sqlite3` database.
+
+For the `hsm_secret`, I did the following steps:
+
+```
+mkdir -p  ~/.lightning/backups/bitcoin/
+cp /mnt/raid1/.lightning/bitcoin/hsm_secret ~/.lightning/backups/bitcoin/hsm_secret
+```
+
+For the channel backup, I added the following line to the bottom of the `/mnt/raid1/.lightning/config`:
+
+```
+wallet=sqlite3:///mnt/raid1/.lightning/bitcoin/lightningd.sqlite3:/home/{username}/.lightning/backups/bitcoin/lightningd.sqlite3
+```
+
 
 # Useful CLN commands:
 
 to confirm your current configs:
+
 `lightning-cli listconfigs` 
+
+# Useful CLN links:
+* [Backing up your CLN node](https://github.com/ElementsProject/lightning/blob/master/doc/BACKUP.md)
+* [Setting up TOR](https://github.com/ElementsProject/lightning/blob/master/doc/TOR.md)
