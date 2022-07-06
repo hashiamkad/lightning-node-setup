@@ -15,7 +15,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=/usr/bin/lightningd --daemon --conf home/{username}/.lightning/config   --pid-file=/home/{username}/.lightning/lightningd-bitcoin.pid --lightning-dir=/home/{username}/.lightning/
+ExecStart=/usr/bin/lightningd --daemon --conf /mnt/raid1/.lightning/config   --pid-file=/mnt/raid1/.lightning/lightningd-bitcoin.pid --lightning-dir=/mnt/raid1/.lightning/
 
 # Creates /run/lightningd owned by bitcoin
 RuntimeDirectory=lightningd
@@ -23,7 +23,7 @@ RuntimeDirectory=lightningd
 User={username}
 Group={username}
 Type=forking
-PIDFile=/home/{username}/.lightning/lightningd-bitcoin.pid
+PIDFile=/mnt/raid1/.lightning/lightningd-bitcoin.pid
 Restart=on-failure
 
 # Hardening measures

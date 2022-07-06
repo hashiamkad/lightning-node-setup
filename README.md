@@ -72,7 +72,7 @@ Next we make a config file to make sure that CLN is running on the raid drives. 
 
 `mkdir /mnt/raid1/.lightning`
 
-`nano ~/.lightning/config` 
+`nano /mnt/raid1/.lightning/config` 
 
 and write the following:
 ```
@@ -84,7 +84,7 @@ log-file=/mnt/raid1/.lightning/lightningd.log
 ```
 and now to run CLN, we can try:
 
-`lightningd --network=bitcoin --log-level=debug --conf=/home/{username}/.lightning/config`
+`lightningd --network=bitcoin --log-level=debug --conf=/mnt/raid1/.lightning/config`
 
 We can confirm that there is now a db file located in `/mnt/raid1/.lightning/bitcoin/lightningd.sqlite3`
 
@@ -94,3 +94,8 @@ Create a file called `/etc/systemd/system/lightningd.service` and copy paste the
 To enable the service on startup, use
 
 `sudo systemctl enable lightningd.service `
+
+# Useful CLN commands:
+
+to confirm your current configs:
+`lightning-cli listconfigs` 
