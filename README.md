@@ -135,6 +135,7 @@ For the channel backup, I added the following line to the bottom of the `/mnt/ra
 wallet=sqlite3:///mnt/raid1/.lightning/bitcoin/lightningd.sqlite3:/home/{username}/.lightning/backups/bitcoin/lightningd.sqlite3
 ```
 
+This backup strategy combined with our raid1 setup means that in order to lose our funds, all 3 of our disks would have to fail.
 
 # Useful CLN commands:
 
