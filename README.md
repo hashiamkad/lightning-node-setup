@@ -139,10 +139,9 @@ This backup strategy combined with our raid1 setup means that in order to lose o
 
 # Useful CLN commands:
 
-to confirm your current configs:
-
-`lightning-cli listconfigs` 
+* `lightning-cli listconfigs` 
 
 # Useful CLN links:
+* [FAQ](https://github.com/ElementsProject/lightning/blob/master/doc/FAQ.md)
 * [Backing up your CLN node](https://github.com/ElementsProject/lightning/blob/master/doc/BACKUP.md)
 * [Setting up TOR](https://github.com/ElementsProject/lightning/blob/master/doc/TOR.md)
